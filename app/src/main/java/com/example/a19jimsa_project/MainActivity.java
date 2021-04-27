@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
                 new RecyclerViewItem("Mont Blanc"),
                 new RecyclerViewItem("Denali")
         ));
-
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, items, new RecyclerViewAdapter.OnClickListener() {
             @Override
             public void onClick(RecyclerViewItem item) {
