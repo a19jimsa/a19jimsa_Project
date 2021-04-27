@@ -18,24 +18,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.zip.Inflater;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<RecyclerViewItem> items;
+    private List<RecyclerViewItem> items;
     private RecyclerViewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=a19jimsa");
-        items = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(this, items, new RecyclerViewAdapter.OnClickListener() {
+        adapter = new RecyclerViewAdapter(this, items = new ArrayList<>(), new RecyclerViewAdapter.OnClickListener() {
             @Override
             public void onClick(RecyclerViewItem item) {
                 Toast.makeText(MainActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
@@ -98,8 +95,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", json);
             Gson gson = new Gson();
             RecyclerViewItem [] item = gson.fromJson(json, RecyclerViewItem[].class);
-
-            for(int i = 0; i < item.length; i++){
+            for (int i = 0; i < item.length; i++){
                 items.add(item[i]);
             }
             adapter.notifyDataSetChanged();
