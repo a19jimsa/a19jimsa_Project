@@ -52,4 +52,19 @@ public class RecyclerViewItem{
     public String getAuxdata() {
         return auxdata;
     }
+
+    @Override
+    public String toString() {
+        return "RecyclerViewItem{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", company='" + company + '\'' +
+                ", location='" + location + '\'' +
+                ", category='" + category + '\'' +
+                ", size=" + size +
+                ", cost=" + cost +
+                ", auxdata='" + auxdata + '\'' +
+                '}';
+    }
 }

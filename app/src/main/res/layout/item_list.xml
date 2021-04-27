@@ -10,6 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="18sp"
-        android:drawableBottom="@drawable/ic_launcher_background"/>
+        android:drawableBottom="@drawable/ic_launcher_background"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:padding="10dp"/>
 
 </LinearLayout>
