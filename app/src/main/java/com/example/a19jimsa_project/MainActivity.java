@@ -1,6 +1,7 @@
 package com.example.a19jimsa_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -22,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,15 +35,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=a19jimsa");
         adapter = new RecyclerViewAdapter(this, items = new ArrayList<>(), new RecyclerViewAdapter.OnClickListener() {
             @Override
             public void onClick(RecyclerViewItem item) {
-                Toast.makeText(MainActivity.this, item.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this.getApplicationContext(), item.getName(), Toast.LENGTH_SHORT).show();
             }
         });
         RecyclerView view = findViewById(R.id.recycler_view);
-        view.setLayoutManager(new LinearLayoutManager(this));
+        view.setLayoutManager(new GridLayoutManager(this,5));
         view.setAdapter(adapter);
     }
 
@@ -95,10 +100,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", json);
             Gson gson = new Gson();
             RecyclerViewItem [] item = gson.fromJson(json, RecyclerViewItem[].class);
-            for (int i = 0; i < item.length; i++){
-                items.add(item[i]);
-            }
+            items.addAll(Arrays.asList(item));
             adapter.notifyDataSetChanged();
+
             Log.d("TAG", ""+items.size());
         }
     }
