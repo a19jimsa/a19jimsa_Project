@@ -1,6 +1,8 @@
 package com.example.a19jimsa_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +13,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -46,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView view = findViewById(R.id.recycler_view);
         view.setLayoutManager(new GridLayoutManager(this,2));
         view.setAdapter(adapter);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        bottomNav.setOnNavigationItemSelectedListener(listener);
     }
 
     @Override
@@ -106,4 +113,27 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", ""+items.size());
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragment = new FavoriteFragment();
+                    break;
+                case R.id.nav_favorites:
+                    fragment = new FavoriteFragment();
+                    break;
+                case R.id.nav_about:
+                    fragment = new FavoriteFragment();
+                    break;
+                default:
+                    fragment = new FavoriteFragment();
+                    return false;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+            return true;
+        }
+    };
 }
