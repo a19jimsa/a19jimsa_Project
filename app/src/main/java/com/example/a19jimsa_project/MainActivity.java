@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         RecyclerView view = findViewById(R.id.recycler_view);
-        view.setLayoutManager(new GridLayoutManager(this,5));
+        view.setLayoutManager(new GridLayoutManager(this,2));
         view.setAdapter(adapter);
     }
 
